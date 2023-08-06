@@ -7,16 +7,19 @@ from columnar import columnar
 from dataclasses import dataclass
 
 url: str = "https://wapi.unreliable.cloud/weather"
-#zipcode: int = sys.argv[1]
+# zipcode: int = sys.argv[1]
 zipcode: int = 53716
 rawHeader: tuple = {
     'X-WAPI-Custom': 'raw'
 }
 
+
 class Dict2Object(object):
     """Convert dictionary to class object"""
+
     def __init__(self, d: dict) -> object:
         self.__dict__ = d
+
 
 @dataclass
 class Weather:
@@ -37,7 +40,7 @@ class Weather:
             ],
         ]
 
-        return(data)
+        return (data)
 
     def weatherHeader() -> list:
         """Define table column header"""
@@ -48,17 +51,20 @@ class Weather:
             'Humidity'
         ]
 
-        return(header)
+        return (header)
+
 
 def getWeather(zipcode: int) -> None:
     r = requests.get(f"{url}/{zipcode}", headers=rawHeader)
     rJson = json.loads(r.text)
     weatherOutput = Dict2Object(rJson)
     headers: list = Weather.weatherHeader()
-    data: list = Weather.weatherData(weatherOutput.city, weatherOutput.state, f"{weatherOutput.temp}F", f"{weatherOutput.humidity}%")
-    table: str = columnar(data, headers, no_borders=True, preformatted_headers=True)
+    data: list = Weather.weatherData(
+        weatherOutput.city, weatherOutput.state, f"{weatherOutput.temp}F", f"{weatherOutput.humidity}%")
+    table: str = columnar(data, headers, no_borders=True,
+                          preformatted_headers=True)
 
-    return(table)
+    return (table)
 
 
 if __name__ == '__main__':
