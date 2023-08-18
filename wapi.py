@@ -4,7 +4,7 @@ import requests
 import json
 import sys
 from columnar import columnar
-from weather import Weather, Header
+from lib.weather import Weather, Header
 
 url: str = "https://wapi.unreliable.cloud/weather"
 zipcode: int = sys.argv[1]
