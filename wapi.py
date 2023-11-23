@@ -7,7 +7,7 @@ from columnar import columnar
 from lib.weather import Weather, Header
 
 url: str = "https://wapi.unreliable.cloud/weather"
-zipcode: int = sys.argv[1]
+zipcode: int | str = sys.argv[1]
 rawHeader: tuple = {
     'X-WAPI-Custom': 'raw'
 }
